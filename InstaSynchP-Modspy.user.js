@@ -6,7 +6,7 @@
 // @version     1.0.1
 // @author      Zod-
 // @source      https://github.com/Zod-/InstaSynchP-Modspy
-// @license     GPL-3.0
+// @license     MIT
 
 // @include     http://*.instasynch.com/*
 // @include     http://instasynch.com/*
