@@ -5,12 +5,12 @@ Log mod actions into the chat (kick, ban, remove videos, ...)
 
 License
 -----------
-<InstaSynch - Watch Videos with friends.>
-The MIT License (MIT)
+The MIT License (MIT)<br>
 
+&lt;InstaSynch - Watch Videos with friends.&gt;<br>
 Copyright (c) 2014 InstaSynch
 
-<Bibbytube - Modified InstaSynch client code>
+&lt;Bibbytube - Modified InstaSynch client code&gt;<br>
 Copyright (C) 2014  Zod-
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
