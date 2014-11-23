@@ -3,7 +3,7 @@
 // @namespace   InstaSynchP
 // @description Log mod actions into the chat (kick, ban, remove videos, ...)
 
-// @version     1.0.1
+// @version     1.0.2
 // @author      Zod-
 // @source      https://github.com/Zod-/InstaSynchP-Modspy
 // @license     MIT
@@ -39,7 +39,7 @@ ModSpy.prototype.executeOnce = function () {
     var th = this,
         oldLog = window.console.log,
         lastRemovedVideo,
-        lastMovedVideoInfo,
+        lastMovedVideo,
         lastSkipPercentage,
         actionTaker,
         lastAction,
@@ -76,7 +76,12 @@ ModSpy.prototype.executeOnce = function () {
         }
         //prepare the message for each log
         if ((match = message.match(/([^\s]+) moved a video\./))) {
-            message = '{0} {1} a <a href="{2}" target="_blank">video</a>'.format(match[1], bumpCheck ? 'bumped' : 'moved', urlParser.create(lastMovedVideoInfo));
+            message = '{0} {1} a <a href="{2}" target="_blank">video</a> via {3}'.format(
+                match[1],
+                bumpCheck ? 'bumped' : 'moved',
+                urlParser.create(lastMovedVideo.info),
+                lastMovedVideo.addedby
+            );
             bumpCheck = false;
         } else if ((match = message.match(/([^\s]+) has banned a user\./))) {
             lastAction = 'banned';
@@ -85,9 +90,13 @@ ModSpy.prototype.executeOnce = function () {
             lastAction = 'kicked';
             actiontaker = match[1];
         } else if ((match = message.match(/([^\s]+) removed a video\./))) {
-            message = '{0} removed a <a href="{1}" target="_blank">video</a> via {2}.'.format(match[1], urlParser.create(lastRemovedVideo.info), lastRemovedVideo.addedby);
+            message = '{0} removed a <a href="{1}" target="_blank">video</a> via {2}.'.format(
+                match[1],
+                urlParser.create(lastRemovedVideo.info),
+                lastRemovedVideo.addedby
+            );
         } else if ((match = message.match(/([^\s]+) modified skip ratio\./))) {
-            message = '{0} set skip to {1}%'.format(match[1], lastSkipPercentage);
+            message = '{0} set skip ratio to {1}%'.format(match[1], lastSkipPercentage);
         }
 
         //add the message to the chat if we don't have to wait for the event to happen
@@ -102,31 +111,31 @@ ModSpy.prototype.executeOnce = function () {
     events.on(th, 'RemoveUser', function (id, user) {
         //print the kick/ban log
         if (lastAction && (lastAction === 'banned' || lastAction === 'kicked')) {
-            addSystemMessage('{0} has {1} {2}'.format(actiontaker, lastAction, user.username));
+            addSystemMessage('{0} has {1} {2}({3})'.format(actiontaker, lastAction, user.username, user.ip));
             lastAction = undefined;
             actiontaker = undefined;
         }
     });
 
-    events.on(th, 'MoveVideo', function (vidinfo, position, oldPosition) {
+    events.on(th, 'MoveVideo', function (ignore, position, oldPosition, video) {
         //save the vidinfo for the log
-        lastMovedVideoInfo = vidinfo;
+        lastMovedVideo = video;
         //check if the video got bumped
         if (Math.abs(activeVideoIndex() - position) <= 10 && Math.abs(oldPosition - position) > 10) { // "It's a bump ! " - Amiral Ackbar
             bumpCheck = true;
         }
     });
 
-    events.on(th, 'RemoveVideo', function (vidinfo, video, indexOfVid) {
+    events.on(th, 'RemoveVideo', function (ignore, video) {
         //save the video for the log
         lastRemovedVideo = video;
     });
 
-    events.on(th, 'Skips', function (skips, skipsNeeded, percent) {
+    events.on(th, 'Skips', function (ignore1, ignore2, percent) {
         //save the percentage for the log
         lastSkipPercentage = Math.round(percent * 100) / 100;
     });
 };
 
 window.plugins = window.plugins || {};
-window.plugins.modSpy = new ModSpy('1.0.1');
+window.plugins.modSpy = new ModSpy('1.0.2');
