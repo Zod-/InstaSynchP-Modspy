@@ -3,7 +3,7 @@
 // @namespace   InstaSynchP
 // @description Log mod actions into the chat (kick, ban, remove videos, ...)
 
-// @version     1.0.3
+// @version     1.0.4
 // @author      Zod-
 // @source      https://github.com/Zod-/InstaSynchP-Modspy
 // @license     MIT
@@ -79,7 +79,7 @@ ModSpy.prototype.executeOnce = function () {
             message = '{0} {1} a <a href="{2}" target="_blank">video</a> via {3}'.format(
                 match[1],
                 bumpCheck ? 'bumped' : 'moved',
-                urlParser.create(lastMovedVideo.info),
+                urlParser.create({videoInfo: lastMovedVideo.info}),
                 lastMovedVideo.addedby
             );
             bumpCheck = false;
@@ -92,7 +92,7 @@ ModSpy.prototype.executeOnce = function () {
         } else if ((match = message.match(/([^\s]+) removed a video\./))) {
             message = '{0} removed a <a href="{1}" target="_blank">video</a> via {2}.'.format(
                 match[1],
-                urlParser.create(lastRemovedVideo.info),
+                urlParser.create({videoInfo: lastRemovedVideo.info}),
                 lastRemovedVideo.addedby
             );
         } else if ((match = message.match(/([^\s]+) modified skip ratio\./))) {
@@ -138,4 +138,4 @@ ModSpy.prototype.executeOnce = function () {
 };
 
 window.plugins = window.plugins || {};
-window.plugins.modSpy = new ModSpy('1.0.3');
+window.plugins.modSpy = new ModSpy('1.0.4');
