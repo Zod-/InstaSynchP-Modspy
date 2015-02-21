@@ -13,7 +13,7 @@
 // @grant       none
 // @run-at      document-start
 
-// @require     https://zod.synology.me/js/InstaSynchP-Library.user.js
+// @require     https://greasyfork.org/scripts/5647-instasynchp-library/code/InstaSynchP%20Library.js?version=37716
 // ==/UserScript==
 
 function ModSpy(version) {
