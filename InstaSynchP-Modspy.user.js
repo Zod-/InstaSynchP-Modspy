@@ -99,7 +99,7 @@ ModSpy.prototype.executeOnce = function () {
         }),
         lastRemovedVideo.addedby
       );
-    } else if ((match = message.match(/([^\s]+) modified skip ratio\./))) {
+    } else if ((match = message.match(/([^\s]+) modified the skip ratio\./))) {
       message = '{0} set skip ratio to {1}%'.format(match[1], lastSkipPercentage);
     }
 
