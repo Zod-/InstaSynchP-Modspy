@@ -3,7 +3,7 @@
 // @namespace   InstaSynchP
 // @description Log mod actions into the chat (kick, ban, remove videos, ...)
 
-// @version     1.0.6
+// @version     1.0.7
 // @author      Zod-
 // @source      https://github.com/Zod-/InstaSynchP-Modspy
 // @license     MIT
@@ -142,4 +142,4 @@ ModSpy.prototype.executeOnce = function () {
 };
 
 window.plugins = window.plugins || {};
-window.plugins.modSpy = new ModSpy('1.0.6');
+window.plugins.modSpy = new ModSpy('1.0.7');
