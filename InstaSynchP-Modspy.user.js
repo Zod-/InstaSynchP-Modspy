@@ -139,6 +139,14 @@ ModSpy.prototype.executeOnce = function () {
     //save the percentage for the log
     lastSkipPercentage = Math.round(percent * 100) / 100;
   });
+
+  events.on(th, 'AddMessage', function (user, message) {
+    if (user.username === '' &&
+      message.match(/^User (?:kicked|(?:un)?banned)\.?$/)) {
+      $('#chat_messages >:last-child').hide()
+        .find('.message').toggleClass('text-info');
+    }
+  });
 };
 
 window.plugins = window.plugins || {};
