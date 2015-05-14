@@ -112,7 +112,7 @@ ModSpy.prototype.executeOnce = function () {
     oldLog.apply(window.console, arguments);
   };
 
-  events.on(th, 'RemoveUser', function (id, user) {
+  events.on(th, 'RemoveUser', function (user) {
     //print the kick/ban log
     if (lastAction && (lastAction === 'banned' || lastAction === 'kicked')) {
       addSystemMessage('{0} has {1} {2}({3})'.format(actiontaker, lastAction, user.username, user.ip));
@@ -121,7 +121,7 @@ ModSpy.prototype.executeOnce = function () {
     }
   });
 
-  events.on(th, 'MoveVideo', function (ignore, position, oldPosition, video) {
+  events.on(th, 'MoveVideo', function (video, position, oldPosition) {
     //save the vidinfo for the log
     lastMovedVideo = video;
     //check if the video got bumped
@@ -130,7 +130,7 @@ ModSpy.prototype.executeOnce = function () {
     }
   });
 
-  events.on(th, 'RemoveVideo', function (ignore, video) {
+  events.on(th, 'RemoveVideo', function (video) {
     //save the video for the log
     lastRemovedVideo = video;
   });
